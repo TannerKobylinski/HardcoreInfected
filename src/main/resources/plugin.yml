@@ -1,0 +1,20 @@
+name: HardcoreInfected
+main: io.github.tannerkobylinski.hardcoreinfected.HardcoreInfected
+version: 1.0.0
+author: Tanner Kobylinski
+commands:
+  infect:
+    description: Apply infection to target player.
+    usage: /infect [player]
+    permission: op
+    permission-message: You don't have permission to use this command.
+  cure:
+    description: Cure infection on target player.
+    usage: /cure [player]
+    permission: op
+    permission-message: You don't have permission to use this command.
+  setInfectedRespawnTime:
+    description: Set the respawn time of Infected players.
+    usage: /setInfectedRespawnTime [int]
+    permission: op
+    permission-message: You don't have permission to use this command.
