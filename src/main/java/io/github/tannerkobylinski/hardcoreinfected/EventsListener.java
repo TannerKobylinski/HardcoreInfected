@@ -1,6 +1,9 @@
 package io.github.tannerkobylinski.hardcoreinfected;
 
 
+import java.util.List;
+
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -10,8 +13,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 
 public final class EventsListener implements Listener {
     HardcoreInfected main;
@@ -31,6 +37,15 @@ public final class EventsListener implements Listener {
         if(!infected.isInfected(player)) {
             config.set(key, true);
             main.saveConfig();
+        }
+        else {
+        	List<ItemStack> drops = event.getDrops();
+        	for(ItemStack drop : drops) {
+        		if(drop.getType() == Material.ZOMBIE_HEAD) {
+        			drops.remove(drop);
+        			break;
+        		}
+        	}
         }
         infected.respawnInfected(player);
     }
@@ -66,6 +81,15 @@ public final class EventsListener implements Listener {
         Player player = ((Player) event.getEntity()).getPlayer();
         if(infected.isInfected(player)) {
             event.setCancelled(true);
+        }
+    }
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onClick(InventoryClickEvent event){
+    	Player player = (Player) event.getWhoClicked();
+        if(infected.isInfected(player)) {
+	        if(event.getSlotType() == InventoryType.SlotType.ARMOR){
+	            event.setCancelled(true);
+	        }
         }
     }
 }

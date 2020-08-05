@@ -1,6 +1,7 @@
 name: HardcoreInfected
 main: io.github.tannerkobylinski.hardcoreinfected.HardcoreInfected
 version: 1.0.0
+api-version: 1.13
 author: Tanner Kobylinski
 commands:
   infect:
